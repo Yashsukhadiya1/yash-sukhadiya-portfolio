@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
-// ── Animation hook ──
-function useAnimate(direction = 'up', delay = 0) {
+function useAnimate(delay = 0) {
   const ref = useRef(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     el.style.transitionDelay = `${delay}ms`;
-    el.classList.add(`anim-${direction}`);
+    el.classList.add('anim-up');
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight - 60) { el.classList.add('visible'); return; }
     const obs = new IntersectionObserver(
@@ -17,52 +16,66 @@ function useAnimate(direction = 'up', delay = 0) {
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [direction, delay]);
+  }, [delay]);
   return ref;
 }
-function useFadeIn() { return useAnimate('up', 0); }
+function useFadeIn() { return useAnimate(0); }
 
 // ── Data ──
 const projects = [
   {
+    icon: '📔',
+    name: 'CA Diary',
+    desc: 'Diary management app built for chartered accountants to track tasks, clients, and daily work entries. Available on Google Play.',
+    stack: ['Flutter', 'Dart', 'Mobile'],
+    demo: 'https://github.com/Yashsukhadiya1/ca_app',
+    download: 'https://play.google.com/store/apps/details?id=gnhub.cadiary',
+  },
+  {
+    icon: '🤖',
     name: 'Flutter Bot',
-    featured: true,
     desc: 'AI chatbot app powered by Google Dialogflow for natural language understanding and intent-based responses. Supports both mobile and web.',
     stack: ['Flutter', 'Dart', 'Dialogflow', 'AI'],
     demo: 'https://github.com/Yashsukhadiya1/flutter_bot',
-    download: 'https://github.com/Yashsukhadiya1/feedback_form/raw/main/apk/app-release.apk',
+    download: null,
   },
   {
+    icon: '📝',
     name: 'Feedback Form',
-    featured: true,
     desc: 'Full-stack Flutter app for customer feedback with automatic ML classification using TF-IDF + Logistic Regression, Firebase Firestore storage, and email confirmation via Gmail SMTP.',
     stack: ['Flutter', 'FastAPI', 'Scikit-learn', 'Firebase'],
     demo: 'https://github.com/Yashsukhadiya1/feedback_form',
     download: 'https://github.com/Yashsukhadiya1/feedback_form/raw/main/apk/app-release.apk',
   },
   {
+    icon: '🏠',
+    name: 'House Price Prediction',
+    desc: 'Linear regression model to predict house prices based on square footage, number of bedrooms and bathrooms. Trained on Kaggle House Prices dataset.',
+    stack: ['Python', 'Scikit-learn', 'Pandas', 'Linear Regression'],
+    demo: 'https://github.com/Yashsukhadiya1/PRODIGY_ML_01',
+    download: null,
+  },
+  {
+    icon: '🛒',
+    name: 'Customer Segmentation',
+    desc: 'K-Means clustering to group retail store customers based on purchase history. Visualized segments using Matplotlib on the Mall Customers dataset.',
+    stack: ['Python', 'Scikit-learn', 'KMeans', 'Seaborn'],
+    demo: 'https://github.com/Yashsukhadiya1/PRODIGY_ML_02',
+    download: null,
+  },
+  {
+    icon: '💬',
     name: 'iChat — Real-Time Chat',
-    featured: true,
     desc: 'Real-time chat application built with Node.js and Socket.IO. Supports instant messaging, user join/leave broadcasts, and live connection events.',
     stack: ['Node.js', 'Socket.IO', 'HTML/CSS', 'JavaScript'],
     demo: 'https://github.com/Yashsukhadiya1/chat-app',
     download: null,
   },
-  {
-    name: 'CA Diary',
-    featured: true,
-    desc: 'Diary management app built for chartered accountants to track tasks, clients, and daily work entries. Available on Google Play.',
-    stack: ['Flutter', 'Dart', 'Mobile'],
-    demo: 'https://github.com/Yashsukhadiya1/ca_app',
-    download: 'https://play.google.com/store/apps/details?id=gnhub.cadiary',
-  },
-  { name: 'Coming Soon', featured: true, desc: 'New project in progress — stay tuned.', stack: [], demo: null, download: null, comingSoon: true },
-  { name: 'Coming Soon', featured: true, desc: 'New project in progress — stay tuned.', stack: [], demo: null, download: null, comingSoon: true },
 ];
 
-// secondary projects — shown in small cards under "More Projects"
 const moreProjects = [
   {
+    icon: '🍲',
     name: 'Food Recipe App',
     desc: 'React app for searching meal recipes using TheMealDB API with routing and clean UI.',
     stack: ['React', 'React Router', 'TheMealDB API'],
@@ -70,55 +83,18 @@ const moreProjects = [
     download: null,
   },
   {
-    name: 'Weather App',
-    desc: 'Real-time weather app showing temperature, conditions, and wind speed for any city via OpenWeatherMap API.',
-    stack: ['React', 'Axios', 'OpenWeatherMap'],
-    demo: 'https://github.com/Yashsukhadiya1/weather_app',
-    download: null,
-  },
-  {
-    name: 'Calculator',
-    desc: 'Clean online calculator built with pure HTML and CSS — no JavaScript frameworks.',
-    stack: ['HTML', 'CSS'],
-    demo: 'https://github.com/Yashsukhadiya1/Calculator',
-    download: null,
-  },
-  {
+    icon: '🔳',
     name: 'QR Code Generator',
     desc: 'React app that generates QR codes from any text or URL with PNG download and clipboard copy.',
     stack: ['React.js'],
     demo: 'https://github.com/Yashsukhadiya1/generate-qr-code-using-reactjs',
     download: null,
   },
-  { name: 'Coming Soon', desc: 'New project in progress — stay tuned.', stack: [], demo: null, download: null, comingSoon: true },
-  { name: 'Coming Soon', desc: 'New project in progress — stay tuned.', stack: [], demo: null, download: null, comingSoon: true },
-];
-
-const mlModels = [
-  {
-    icon: '🏠',
-    name: 'House Price Prediction',
-    year: '2025',
-    desc: 'Linear regression model to predict house prices based on square footage, number of bedrooms and bathrooms. Trained on Kaggle House Prices dataset.',
-    tags: ['Python', 'Scikit-learn', 'Pandas', 'Linear Regression'],
-    demo: 'https://github.com/Yashsukhadiya1/PRODIGY_ML_01',
-    download: null,
-  },
-  {
-    icon: '🛒',
-    name: 'Customer Segmentation',
-    year: '2025',
-    desc: 'K-Means clustering to group retail store customers based on purchase history. Visualized segments using Matplotlib on the Mall Customers dataset.',
-    tags: ['Python', 'Scikit-learn', 'KMeans', 'Seaborn'],
-    demo: 'https://github.com/Yashsukhadiya1/PRODIGY_ML_02',
-    download: null,
-  },
   {
     icon: '🐱',
     name: 'Cat vs Dog Classifier',
-    year: '2025',
     desc: 'SVM-based image classifier to distinguish cats from dogs using the Kaggle Dogs vs. Cats dataset with image preprocessing via OpenCV.',
-    tags: ['Python', 'SVM', 'OpenCV', 'Scikit-learn'],
+    stack: ['Python', 'SVM', 'OpenCV', 'Scikit-learn'],
     demo: 'https://github.com/Yashsukhadiya1/PRODIGY_ML_03',
     download: null,
   },
@@ -135,16 +111,13 @@ const techStack = [
 
 const certifications = ['NPTEL — Data Structures (4 Credit, Score: 65%, May 2025)'];
 
+// Resume: add PDF to public/, then set path below (null hides buttons)
+const RESUME_PDF = '/Yash_Sukhadiya_Resume.pdf';
+
 // ── Navbar ──
 function Navbar({ menuOpen, setMenuOpen }) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', fn);
-    return () => window.removeEventListener('scroll', fn);
-  }, []);
   return (
-    <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
+    <nav className="navbar">
       <a href="#hero" className="nav-logo">yash<span>.sukhadiya</span></a>
       <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
         {['projects', 'skills', 'resume', 'contact'].map(s => (
@@ -229,12 +202,12 @@ function Hero() {
   const roles = ['Flutter Developer', 'Machine Learning Expert', 'AI Integrated with Flutter', 'AI Automations'];
   const [roleIdx, setRoleIdx] = useState(0);
 
-  const eyebrowRef = useAnimate('up', 0);
-  const nameRef    = useAnimate('up', 80);
-  const roleRef    = useAnimate('up', 160);
-  const descRef    = useAnimate('up', 220);
-  const btnsRef    = useAnimate('up', 280);
-  const eduRef     = useAnimate('up', 340);
+  const eyebrowRef = useAnimate(0);
+  const nameRef    = useAnimate(80);
+  const roleRef    = useAnimate(160);
+  const descRef    = useAnimate(220);
+  const btnsRef    = useAnimate(280);
+  const eduRef     = useAnimate(340);
 
   useEffect(() => {
     let i = 0; const cur = roles[roleIdx]; setTyped('');
@@ -250,28 +223,30 @@ function Hero() {
     <section id="hero" className="hero">
       <HeroCanvas />
       <div className="hero-inner">
-        <div className="hero-eyebrow anim-base" ref={eyebrowRef}>
-          <span className="status-dot" /> available for opportunities
-        </div>
-        <h1 className="hero-name anim-base" ref={nameRef}>
-          Yash<br /><span className="accent">Sukhadiya</span>
-        </h1>
-        <p className="hero-role anim-base" ref={roleRef}>
-          {typed}<span className="typed-cursor">|</span>
-        </p>
-        <p className="hero-desc anim-base" ref={descRef}>
-          Flutter & React developer with hands-on internship experience building production-level mobile apps, AI-integrated systems, and responsive web applications.
-        </p>
-        <div className="hero-btns anim-base" ref={btnsRef}>
-          <a href="https://github.com/Yashsukhadiya1" target="_blank" rel="noreferrer" className="btn-primary"><GithubIcon /> GitHub</a>
-          <a href="https://www.linkedin.com/in/yash-sukhadiya-5219552b2/" target="_blank" rel="noreferrer" className="btn-ghost"><LinkedinIcon /> LinkedIn</a>
-          <a href="mailto:23amtics020@gmail.com" className="btn-ghost"><MailIcon /> Email</a>
+        <div className="hero-main">
+          <div className="hero-eyebrow anim-base" ref={eyebrowRef}>
+            <span className="status-dot" /> available for opportunities
+          </div>
+          <h1 className="hero-name anim-base" ref={nameRef}>
+            Yash<br /><span className="accent">Sukhadiya</span>
+          </h1>
+          <p className="hero-role anim-base" ref={roleRef}>
+            {typed}<span className="typed-cursor">|</span>
+          </p>
+          <p className="hero-desc anim-base" ref={descRef}>
+            Flutter & React developer with hands-on internship experience building production-level mobile apps, AI-integrated systems, and responsive web applications.
+          </p>
+          <div className="hero-btns anim-base" ref={btnsRef}>
+            <a href="https://github.com/Yashsukhadiya1" target="_blank" rel="noreferrer" className="btn-primary"><GithubIcon /> GitHub</a>
+            <a href="https://www.linkedin.com/in/yash-sukhadiya-5219552b2/" target="_blank" rel="noreferrer" className="btn-ghost"><LinkedinIcon /> LinkedIn</a>
+            <a href="mailto:23amtics020@gmail.com" className="btn-ghost"><MailIcon /> Email</a>
+          </div>
         </div>
         <div className="hero-edu anim-base" ref={eduRef}>
           <div className="edu-box">
             <span className="edu-badge">🎓</span>
-            <div>
-              <p className="edu-degree">Asha M. Tarsadia Institute of Science and Technology</p>
+            <div className="edu-content">
+              <p className="edu-degree">Asha M. Tarsadia Institute of Computer Science and Technology</p>
               <p className="edu-uni">B.Tech — Information Technology</p>
               <p className="edu-meta"><span className="accent-text">Oct 2023 – Present</span> · CGPA 9</p>
             </div>
@@ -283,56 +258,50 @@ function Hero() {
   );
 }
 
-
 // ── Projects ──
 function Projects() {
   const [showMore, setShowMore] = useState(false);
   const ref = useFadeIn();
+
   return (
     <section id="projects" className="section">
-      <div className="section-head fade-up" ref={ref}>
-        <span className="eyebrow">selected work</span>
+      <div className="section-head" ref={ref}>
+        <span className="eyebrow">flutter mobile developer</span>
         <h2 className="section-title">Projects <span className="accent">&amp; Builds</span></h2>
-        <p className="section-sub">Things I've built — apps, tools, and experiments</p>
+        <p className="section-sub">Production-level Flutter apps, ML builds, and cross-platform work</p>
       </div>
 
       <div className="proj-grid">
-        {projects.map((p, i) => <ProjectRow key={p.name} project={p} index={i} />)}
+        {projects.map((p, i) => (
+          <ProjectRow key={p.name} project={p} index={i} />
+        ))}
       </div>
 
-      {moreProjects.length > 0 && (
-        <div className="more-proj-wrap">
-          <button className="view-all-btn" onClick={() => setShowMore(s => !s)}>
-            {showMore ? '↑ Hide' : `More Projects (${moreProjects.length}) →`}
-          </button>
-          {showMore && (
-            <div className="proj-grid-small">
-              {moreProjects.map((p, i) => <SmallProjectCard key={p.name + i} project={p} index={i} />)}
-            </div>
-          )}
-        </div>
-      )}
+      <div className="more-proj-wrap">
+        <button type="button" className="view-all-btn" onClick={() => setShowMore(s => !s)}>
+          {showMore ? '↑ Hide' : `More Projects (${moreProjects.length}) →`}
+        </button>
+        {showMore && (
+          <div className="proj-grid-small">
+            {moreProjects.map((p, i) => (
+              <SmallProjectCard key={p.name} project={p} index={i} />
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }
 
 function SmallProjectCard({ project, index }) {
-  const ref = useAnimate('up', index * 50);
-  if (project.comingSoon) {
-    return (
-      <div className="proj-card-small proj-coming-soon anim-base" ref={ref}>
-        <div className="coming-soon-inner">
-          <span className="coming-soon-icon">🚀</span>
-          <p className="coming-soon-label">Coming Soon</p>
-          <p className="coming-soon-sub">New project in progress</p>
-        </div>
-      </div>
-    );
-  }
+  const ref = useAnimate(index * 50);
   return (
     <div className="proj-card-small anim-base" ref={ref}>
       <div className="proj-card-header">
-        <p className="proj-name" style={{ fontSize: '0.88rem' }}>{project.name}</p>
+        <p className="proj-name proj-name-sm">
+          {project.icon && <span className="proj-icon">{project.icon} </span>}
+          {project.name}
+        </p>
         <div className="proj-header-btns">
           {project.demo && (
             <a href={project.demo} target="_blank" rel="noreferrer" className="icon-btn" aria-label="Repo">
@@ -348,7 +317,7 @@ function SmallProjectCard({ project, index }) {
           )}
         </div>
       </div>
-      <p className="proj-desc" style={{ fontSize: '0.78rem' }}>{project.desc}</p>
+      <p className="proj-desc proj-desc-sm">{project.desc}</p>
       <div className="proj-tags">
         {project.stack.map(t => <span key={t} className="tag tag-blue">{t}</span>)}
       </div>
@@ -357,24 +326,14 @@ function SmallProjectCard({ project, index }) {
 }
 
 function ProjectRow({ project, index }) {
-  const ref = useAnimate('up', index * 60);
-  if (project.comingSoon) {
-    return (
-      <div className="proj-card proj-coming-soon anim-base" ref={ref}>
-        <div className="coming-soon-inner">
-          <span className="coming-soon-icon">🚀</span>
-          <p className="coming-soon-label">Coming Soon</p>
-          <p className="coming-soon-sub">New project in progress</p>
-        </div>
-      </div>
-    );
-  }
+  const ref = useAnimate(index * 60);
   return (
     <div className="proj-card anim-base" ref={ref}>
       <div className="proj-card-header">
-        <div>
-          <p className="proj-name">{project.name}</p>
-        </div>
+        <p className="proj-name">
+          {project.icon && <span className="proj-icon">{project.icon} </span>}
+          {project.name}
+        </p>
         <div className="proj-header-btns">
           {project.download && (
             <a href={project.download} target="_blank" rel="noreferrer" className="icon-btn icon-btn-primary" aria-label="Download App">
@@ -404,7 +363,7 @@ function Skills() {
   const certsRef = useFadeIn();
   return (
     <section id="skills" className="section">
-      <div className="section-head fade-up" ref={ref}>
+      <div className="section-head" ref={ref}>
         <span className="eyebrow">tools &amp; technologies</span>
         <h2 className="section-title">What I <span className="accent">Work With</span></h2>
       </div>
@@ -415,8 +374,8 @@ function Skills() {
         ))}
       </div>
 
-      <div className="certs-row fade-up" ref={certsRef}>
-        <span className="eyebrow" style={{ marginBottom: '1rem', display: 'block' }}>certifications</span>
+      <div className="certs-row" ref={certsRef}>
+        <span className="eyebrow certs-eyebrow">certifications</span>
         <div className="certs-tags">
           {certifications.map(c => <span key={c} className="tag tag-cert">{c}</span>)}
         </div>
@@ -426,7 +385,7 @@ function Skills() {
 }
 
 function SkillRow({ cat, index }) {
-  const ref = useAnimate('up', index * 60);
+  const ref = useAnimate(index * 60);
   return (
     <div className="skill-row anim-base" ref={ref}>
       <span className="skill-label">{cat.label}</span>
@@ -437,67 +396,14 @@ function SkillRow({ cat, index }) {
   );
 }
 
-// ── ML Models ──
-function MLModels() {
-  const ref = useFadeIn();
-  return (
-    <section className="section">
-      <div className="section-head fade-up" ref={ref}>
-        <span className="eyebrow">machine learning</span>
-        <h2 className="section-title">ML <span className="accent">Experiments</span></h2>
-        <p className="section-sub">Hands-on models exploring core ML concepts</p>
-      </div>
-      <div className="ml-list">
-        {mlModels.map((m, i) => (
-          <MLCard key={m.name} model={m} index={i} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ── Resume ──
-function MLCard({ model, index }) {
-  const ref = useAnimate('up', index * 80);
-  return (
-    <div className="ml-row anim-base" ref={ref}>
-      <span className="ml-icon">{model.icon}</span>
-      <div className="ml-body">
-        <div className="proj-card-header">
-          <div>
-            <span className="ml-name">{model.name}</span>
-            <span className="proj-year" style={{ display: 'block', marginTop: '0.1rem' }}>{model.year}</span>
-          </div>
-          <div className="proj-header-btns">
-            {model.download && (
-              <a href={model.download} target="_blank" rel="noreferrer" className="icon-btn icon-btn-primary" aria-label="Download App">
-                <DownloadIcon />
-                <span className="icon-btn-tip">Download App</span>
-              </a>
-            )}
-            {model.demo && (
-              <a href={model.demo} target="_blank" rel="noreferrer" className="icon-btn" aria-label="Live Demo / Repo">
-                <ExternalIcon />
-                <span className="icon-btn-tip">Live Demo / Repo</span>
-              </a>
-            )}
-          </div>
-        </div>
-        <p className="ml-desc">{model.desc}</p>
-        <div className="proj-tags">
-          {model.tags.map(t => <span key={t} className="tag tag-blue">{t}</span>)}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Resume() {
   const ref = useFadeIn();
-  const rowRef = useAnimate('up', 100);
+  const rowRef = useAnimate(100);
+  const hasResume = Boolean(RESUME_PDF);
+
   return (
     <section id="resume" className="section">
-      <div className="section-head fade-up" ref={ref}>
+      <div className="section-head" ref={ref}>
         <span className="eyebrow">resume</span>
         <h2 className="section-title">My <span className="accent">Resume</span></h2>
         <p className="section-sub">Full overview of my skills, projects, and background</p>
@@ -511,12 +417,63 @@ function Resume() {
             <line x1="16" y1="17" x2="8" y2="17"/>
           </svg>
         </div>
-        <p className="resume-filename">YASH_SUKHADIYA_RESUME.PDF</p>
-        <p className="resume-sub">Skills · Projects · Experience</p>
-        <div className="resume-actions">
-          <a href="https://drive.google.com/file/d/1cf--fv6Ej1ReH7697IJ11KklwM5ELEdB/view?usp=drivesdk" target="_blank" rel="noreferrer" className="btn-ghost"><EyeIcon /> View Resume</a>
-          <a href="https://drive.google.com/uc?export=download&id=1cf--fv6Ej1ReH7697IJ11KklwM5ELEdB" target="_blank" rel="noreferrer" className="btn-primary"><DownloadIcon /> Download PDF</a>
-        </div>
+        {hasResume && (
+          <>
+            <p className="resume-filename">Yash_Sukhadiya_Resume.pdf</p>
+            <p className="resume-sub">Skills · Projects · Experience</p>
+            <div className="resume-actions">
+              <a href={RESUME_PDF} target="_blank" rel="noreferrer" className="btn-ghost"><EyeIcon /> View Resume</a>
+              <a href={RESUME_PDF} download="Yash_Sukhadiya_Resume.pdf" className="btn-primary"><DownloadIcon /> Download PDF</a>
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ── Flutter Experience ──
+function FlutterExperience() {
+  const ref = useFadeIn();
+  const flutterNames = ['CA Diary', 'Flutter Bot', 'Feedback Form'];
+  const flProjects = flutterNames.map(n => projects.find(p => p.name === n)).filter(Boolean);
+  return (
+    <section id="flutter-experience" className="section">
+      <div className="section-head" ref={ref}>
+        <span className="eyebrow">flutter experience</span>
+        <h2 className="section-title">Flutter <span className="accent">Experience</span></h2>
+        <p className="section-sub">Selected Flutter projects and apps I built</p>
+      </div>
+
+      <div className="fl-list">
+        {flProjects.map((p, i) => (
+          <div key={p.name} className={`fl-item${i < flProjects.length - 1 ? ' fl-item-border' : ''}`}>
+            <div className="fl-item-head">
+              <div className="fl-item-title">
+                <span className="proj-icon fl-item-icon">{p.icon}</span>
+                <h3 className="fl-item-name">{p.name}</h3>
+              </div>
+              <div className="fl-item-actions">
+                {p.download && (
+                  <a href={p.download} target="_blank" rel="noreferrer" className="icon-btn icon-btn-primary" aria-label="Download App">
+                    <DownloadIcon />
+                    <span className="icon-btn-tip">Download</span>
+                  </a>
+                )}
+                {p.demo && (
+                  <a href={p.demo} target="_blank" rel="noreferrer" className="icon-btn" aria-label="View Repo">
+                    <ExternalIcon />
+                    <span className="icon-btn-tip">View Repo</span>
+                  </a>
+                )}
+              </div>
+            </div>
+            <p className="fl-item-desc">{p.desc}</p>
+            <div className="proj-tags">
+              {p.stack.map(t => <span key={t} className="tag tag-blue">{t}</span>)}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -525,10 +482,10 @@ function Resume() {
 // ── Contact ──
 function Contact() {
   const ref = useFadeIn();
-  const rowRef = useAnimate('up', 100);
+  const rowRef = useAnimate(100);
   return (
     <section id="contact" className="section">
-      <div className="section-head fade-up" ref={ref}>
+      <div className="section-head" ref={ref}>
         <span className="eyebrow">get in touch</span>
         <h2 className="section-title">Let's <span className="accent">Talk</span></h2>
         <p className="section-sub">
@@ -571,20 +528,51 @@ const MailIcon = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="non
 const ExternalIcon = () => <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>;
 const EyeIcon = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>;
 const DownloadIcon = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>;
+const ChevronUpIcon = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="18 15 12 9 6 15"/></svg>;
+
+function ScrollToTop({ onScrollTop }) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 80);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const goTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    onScrollTop?.();
+  };
+
+  return (
+    <button
+      type="button"
+      className={`scroll-top-btn${visible ? ' visible' : ''}`}
+      onClick={goTop}
+      aria-label="Scroll to top"
+    >
+      <ChevronUpIcon />
+    </button>
+  );
+}
 
 // ── App ──
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="App">
-      <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <header className="site-header">
+        <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      </header>
       <Hero />
       <Projects />
       <Skills />
-      <MLModels />
+      <FlutterExperience />
       <Resume />
       <Contact />
       <Footer />
+      <ScrollToTop onScrollTop={() => setMenuOpen(false)} />
     </div>
   );
 }
