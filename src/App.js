@@ -32,6 +32,14 @@ const projects = [
     download: 'https://play.google.com/store/apps/details?id=gnhub.cadiary',
   },
   {
+    icon: '🏢',
+    name: 'WorkSphere — EEMS',
+    desc: 'Full-stack employee management system with Flutter mobile, React dashboard, and FastAPI + PostgreSQL backend. Includes HR workflows, JWT auth, ML attrition scoring, and Gemini AI Q&A.',
+    stack: ['Flutter', 'React', 'FastAPI', 'PostgreSQL', 'Gemini AI'],
+    demo: 'https://github.com/Yashsukhadiya1/worksphere',
+    download: null,
+  },
+  {
     icon: '🤖',
     name: 'Flutter Bot',
     desc: 'AI chatbot app powered by Google Dialogflow for natural language understanding and intent-based responses. Supports both mobile and web.',
@@ -46,14 +54,6 @@ const projects = [
     stack: ['Flutter', 'FastAPI', 'Scikit-learn', 'Firebase'],
     demo: 'https://github.com/Yashsukhadiya1/feedback_form',
     download: 'https://github.com/Yashsukhadiya1/feedback_form/raw/main/apk/app-release.apk',
-  },
-  {
-    icon: '🏠',
-    name: 'House Price Prediction',
-    desc: 'Linear regression model to predict house prices based on square footage, number of bedrooms and bathrooms. Trained on Kaggle House Prices dataset.',
-    stack: ['Python', 'Scikit-learn', 'Pandas', 'Linear Regression'],
-    demo: 'https://github.com/Yashsukhadiya1/PRODIGY_ML_01',
-    download: null,
   },
   {
     icon: '🛒',
@@ -74,6 +74,14 @@ const projects = [
 ];
 
 const moreProjects = [
+  {
+    icon: '🏠',
+    name: 'House Price Prediction',
+    desc: 'Linear regression model predicting house prices from square footage, bedrooms, and bathrooms using the Kaggle House Prices dataset.',
+    stack: ['Python', 'Scikit-learn', 'Pandas'],
+    demo: 'https://github.com/Yashsukhadiya1/PRODIGY_ML_01',
+    download: null,
+  },
   {
     icon: '🍲',
     name: 'Food Recipe App',
@@ -101,12 +109,13 @@ const moreProjects = [
 ];
 
 const techStack = [
-  { label: 'Languages', tags: ['Java', 'Python', 'C', 'Dart'] },
-  { label: 'Frontend', tags: ['HTML', 'CSS', 'JavaScript', 'ReactJS'] },
-  { label: 'Mobile', tags: ['Flutter', 'Dart'] },
-  { label: 'Backend', tags: ['PHP', 'Node.js', 'FastAPI'] },
-  { label: 'Database', tags: ['MySQL', 'SQLite', 'Firebase'] },
-  { label: 'Core Subjects', tags: ['Data Structures', 'Operating Systems', 'DBMS'] },
+  { label: 'Programming', tags: ['Dart', 'Python', 'JavaScript', 'C'] },
+  { label: 'Frontend', tags: ['Flutter', 'ReactJS', 'HTML', 'CSS'] },
+  { label: 'Backend', tags: ['FastAPI', 'Node.js', 'PHP'] },
+  { label: 'Database', tags: ['PostgreSQL', 'MySQL', 'SQLite', 'SQFLite', 'Firebase'] },
+  { label: 'ML & AI', tags: ['Scikit-learn', 'Pandas', 'Machine Learning', 'Dialogflow'] },
+  { label: 'Tools', tags: ['Git', 'GitHub', 'JWT', 'Socket.IO'] },
+  { label: 'Concepts', tags: ['OOP', 'DBMS', 'OS', 'CN', 'DSA'] },
 ];
 
 const certifications = ['NPTEL — Data Structures (4 Credit, Score: 65%, May 2025)'];

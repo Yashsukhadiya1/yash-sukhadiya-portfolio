@@ -603,6 +603,10 @@ body::before {
   font-weight: 500;
   color: var(--accent2);
   border-color: rgba(124, 58, 237, 0.35);
+  white-space: normal;
+  word-break: break-word;
+  max-width: 100%;
+  display: inline-block;
 }
 
 /* ── Flutter experience ── */
@@ -785,7 +789,8 @@ footer.footer {
   .fl-item-head { flex-wrap: wrap; }
   .proj-tags { gap: 0.35rem; }
 
-  .contact-open { max-width: 100%; }
+  .certs-eyebrow { font-size: 0.82rem; }
+  .tag-cert { font-size: 0.78rem; padding: 0.4rem 0.7rem; }
 
   footer.footer { flex-direction: column; gap: 0.4rem; text-align: center; }
 }
